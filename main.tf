@@ -22,8 +22,7 @@ locals {
   gcloud_bin_abs_path  = abspath(local.gcloud_bin_path)
   components           = join(",", var.additional_components)
 
-  download_override = var.enabled ? data.external.env_override[0].result.download : ""
-  skip_download     = local.download_override == "always" ? false : (local.download_override == "never" ? true : var.skip_download)
+  skip_download     = var.skip_download
 
   gcloud              = local.skip_download ? "gcloud" : "${local.gcloud_bin_path}/gcloud"
   gcloud_download_url = var.gcloud_download_url != "" ? var.gcloud_download_url : "https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-${var.gcloud_sdk_version}-${var.platform}-x86_64.tar.gz"
